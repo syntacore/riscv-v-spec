@@ -1,0 +1,54 @@
+cmake_minimum_required(VERSION 3.6)
+
+project(v-spec VERSION 0.7 LANGUAGES C)
+
+FIND_PROGRAM(ASCIIDOCTOR_EXECUTABLE "asciidoctor")
+
+IF (NOT ASCIIDOCTOR_EXECUTABLE)
+  MESSAGE(FATAL_ERROR "Could not find asciidoctor")
+ENDIF (NOT ASCIIDOCTOR_EXECUTABLE)
+
+FIND_PROGRAM(ASCIIDOCTORPDF_EXECUTABLE "asciidoctor-pdf")
+
+IF (NOT ASCIIDOCTORPDF_EXECUTABLE)
+  MESSAGE(FATAL_ERROR "Could not find asciidoctor-pdf")
+ENDIF (NOT ASCIIDOCTORPDF_EXECUTABLE)
+
+set(ADOC_LIBS
+    # asciidoctor-diagram
+    # asciimath
+    # asciidoctor-plantuml
+)
+
+set(ADOC_ATTR
+    # allow-uri-read
+    # asciidoctor-mathematical
+    # stem=latexmath
+    # mathematical-format=svg
+    pdf-page-size=A4
+)
+
+set(ADOCFLAGS --safe -D ${CMAKE_CURRENT_BINARY_DIR})
+
+foreach(attr ${ADOC_ATTR})
+    list(APPEND ADOCFLAGS --attribute ${attr})
+endforeach()
+
+foreach(lib ${ADOC_LIBS})
+    list(APPEND ADOCFLAGS --require ${lib})
+endforeach()
+
+file(GLOB ADOC_SRC LIST_DIRECTORIES false *.adoc)
+
+macro(ADOC ext backend exe)
+    add_custom_command(
+        OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.${ext}
+        COMMAND ${exe} ${ADOCFLAGS} --backend ${backend} -o ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.${ext} ${CMAKE_CURRENT_SOURCE_DIR}/${PROJECT_NAME}.adoc
+        DEPENDS ${ADOC_SRC}
+    )
+    add_custom_target(${PROJECT_NAME}-${backend} ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.${ext})
+endmacro()
+
+ADOC(pdf pdf ${ASCIIDOCTORPDF_EXECUTABLE})
+ADOC(html html ${ASCIIDOCTOR_EXECUTABLE})
+ADOC(xml docbook ${ASCIIDOCTOR_EXECUTABLE})
