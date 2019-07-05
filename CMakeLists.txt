@@ -2,6 +2,20 @@ cmake_minimum_required(VERSION 3.6)
 
 project(v-spec VERSION 0.7 LANGUAGES C)
 
+find_package(Git)
+
+if(Git_FOUND)
+    execute_process(
+        COMMAND ${GIT_EXECUTABLE} -C ${CMAKE_CURRENT_SOURCE_DIR} describe --tag --dirty
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+        OUTPUT_VARIABLE GIT_DESCRIBE
+        OUTPUT_STRIP_TRAILING_WHITESPACE
+    )
+    message(STATUS "${GIT_DESCRIBE}")
+else()
+    set(GIT_DESCRIBE "Unknown version" CACHE STRING "User-defined version string")
+endif()
+
 FIND_PROGRAM(ASCIIDOCTOR_EXECUTABLE "asciidoctor")
 
 IF (NOT ASCIIDOCTOR_EXECUTABLE)
@@ -26,6 +40,7 @@ set(ADOC_ATTR
     # stem=latexmath
     # mathematical-format=svg
     pdf-page-size=A4
+    VERSION=${GIT_DESCRIBE}
 )
 
 set(ADOCFLAGS --safe -D ${CMAKE_CURRENT_BINARY_DIR})

@@ -1,13 +1,15 @@
-= RISC-V "V" Vector Extension
-Version 0.8-draft-20190906
 :doctype: article
 :encoding: utf-8
 :lang: en
 :toc: left
 :numbered:
 :stem: latexmath
+:VERSION: 0.8-draft-20190906
 :le: &#8804;
 :ge: &#8805;
+= RISC-V "V" Vector Extension
+Krste Asanovic
+{VERSION}
 
 Contributors include: Alon Amid, Krste Asanovic, Allen Baum, Alex
 Bradbury, Tony Brewer, Chris Celio, Aliaksei Chapyzhenka, Silviu
