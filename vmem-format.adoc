@@ -1,13 +1,17 @@
+ifndef::wavedrom[]
+.Format for Vector Load Instructions under LOAD-FP major opcode
+[options="header,footer"]
+|===
+^|[31..29] ^|[28] ^|[27:26] ^|[25] ^|[24:20] ^|[19:15] ^|[14:12] ^|[11:7] ^|[6:0]   |
+^|nf       ^|mew  ^|mop     ^|vm   ^|lumop   ^|rs1     ^|width   ^|vd     ^|0000111 | VL*  unit-stride
+^|nf       ^|mew  ^|mop     ^|vm   ^|rs2     ^|rs1     ^|width   ^|vd     ^|0000111 | VLS* strided
+^|nf       ^|mew  ^|mop     ^|vm   ^|vs2     ^|rs1     ^|width   ^|vd     ^|0000111 | VLX* indexed
+^|3        ^|1    ^|2       ^|1    ^|5       ^|5       ^|3       ^|5      ^|7       |
+|===
+endif::[]
+
+ifdef::wavedrom[]
 Format for Vector Load Instructions under LOAD-FP major opcode
-
-////
-31 29  28  27 26  25  24      20 19       15 14   12 11      7 6     0
- nf  | mew| mop | vm |  lumop   |    rs1    | width |    vd   |0000111| VL*  unit-stride
- nf  | mew| mop | vm |   rs2    |    rs1    | width |    vd   |0000111| VLS* strided
- nf  | mew| mop | vm |   vs2    |    rs1    | width |    vd   |0000111| VLX* indexed
-  3     1    2     1      5           5         3         5       7
-////
-
 ```wavedrom
 {reg: [
   {bits: 7, name: 0x7, attr: 'VL* unit-stride'},
@@ -49,16 +53,22 @@ Format for Vector Load Instructions under LOAD-FP major opcode
   {bits: 3, name: 'nf'},
 ]}
 ```
+endif::[]
+
+ifndef::wavedrom[]
+.Format for Vector Store Instructions under STORE-FP major opcode
+[options="header,footer"]
+|===
+^|[31:29] ^|[28] ^|[27:26] ^|[25] ^|[24:20] ^|[19:15] ^|[14:12] ^|[11:7] ^|[6:0]   |
+^|nf      ^|mew  ^| mop    ^| vm  ^|sumop   ^|rs1     ^| width  ^|vs3    ^|0100111 | VS*  unit-stride
+^|nf      ^|mew  ^| mop    ^| vm  ^|rs2     ^|rs1     ^| width  ^|vs3    ^|0100111 | VSS* strided
+^|nf      ^|mew  ^| mop    ^| vm  ^|vs2     ^|rs1     ^| width  ^|vs3    ^|0100111 | VSX* indexed
+^|3       ^|1    ^|2       ^|1    ^|5       ^|5       ^|3       ^|5      ^|7       |
+|===
+endif::[]
+
+ifdef::wavedrom[]
 Format for Vector Store Instructions under STORE-FP major opcode
-
-////
-31 29  28  27 26  25  24      20 19       15 14   12 11      7 6     0
- nf  | mew| mop | vm |  sumop   |    rs1    | width |   vs3   |0100111| VS*  unit-stride
- nf  | mew| mop | vm |   rs2    |    rs1    | width |   vs3   |0100111| VSS* strided
- nf  | mew| mop | vm |   vs2    |    rs1    | width |   vs3   |0100111| VSX* indexed
-  3     1    2     1      5           5         3         5        7
-////
-
 ```wavedrom
 {reg: [
   {bits: 7, name: 0x27, attr: 'VS* unit-stride'},
@@ -100,3 +110,4 @@ Format for Vector Store Instructions under STORE-FP major opcode
   {bits: 3, name: 'nf'},
 ]}
 ```
+endif::[]

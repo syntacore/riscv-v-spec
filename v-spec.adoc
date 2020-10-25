@@ -2046,12 +2046,18 @@ that raise exceptions partway through loading a structure.
 
 === Vector Load/Store Whole Register Instructions
 
-Format for Vector Load Whole Register Instructions under LOAD-FP major opcode
+ifndef::wavedrom[]
+.Format for Vector Load Whole Register Instructions under LOAD-FP major opcode
+[cols=9,options="header,footer"]
+|===
+^|[31:29] ^|[28] ^|[27:26] ^|[25] ^|[24:20] ^|[19:15] ^|[14:12] ^|[11:7] ^|[6:0]   |
+^|nf      ^|mew  ^|00      ^|1    ^|01000   ^|rs1     ^|width   ^|vd     ^|0000111 |VL<nf>R
+^|3       ^|1    ^|2       ^|1    ^|5       ^|5       ^|3       ^|5      ^|7       |
+|===
+endif::[]
 
-////
-31 29  28  27 26  25 24   20 19       15 14   12 11      7 6     0
- nf  | mew|  00  | 1| 01000 |    rs1    | width |    vd   |0000111| VL<nf>R
-////
+ifdef::wavedrom[]
+Format for Vector Load Whole Register Instructions under LOAD-FP major opcode
 
 ```wavedrom
 {reg: [
@@ -2066,12 +2072,20 @@ Format for Vector Load Whole Register Instructions under LOAD-FP major opcode
   {bits: 3, name: 'nf'},
 ]}
 ```
+endif::[]
 
-////
+ifndef::wavedrom[]
+.Format for Vector Store Whole Register Instructions under STORE-FP major opcode
+[cols=9,options="header"]
+|===
+^|[31:29] ^|[28] ^|[27:26] ^|[25] ^|[24:20] ^|[19:15] ^|[14:12] ^|[11:7] ^|[6:0]   |
+^|nf      ^| 0   ^|00      ^|1    ^|01000   ^|rs1     ^|000     ^|vs3    ^|0100111 |VS<nf>R
+^|3       ^|1    ^|2       ^|1    ^|5       ^|5       ^|3       ^|5      ^|7       |
+|===
+endif::[]
+
+ifdef::wavedrom[]
 Format for Vector Store Whole Register Instructions under STORE-FP major opcode
-31 29  28  27 26  25  24  20 19       15 14   12 11      7 6     0
- nf  |  0 |  00  | 1| 01000 |    rs1    |  000  |   vs3   |0100111| VS<nf>R
-////
 
 ```wavedrom
 {reg: [
@@ -2086,6 +2100,7 @@ Format for Vector Store Whole Register Instructions under STORE-FP major opcode
   {bits: 3, name: 'nf'},
 ]}
 ```
+endif::[]
 
 These instructions load and store whole vector register groups.
 

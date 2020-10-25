@@ -1,10 +1,15 @@
-Format for Vector AMO Instructions under AMO major opcode
+ifndef::wavedrom[]
+.Format for Vector AMO Instructions under AMO major opcode
+[options="header,footer"]
+|===
+^|[31:27] ^|[26] ^|[25] ^|[24:20] ^|[19:15] ^|[14:12] ^|[11:7] ^|[6:0]   |
+^|amoop   ^|wd   ^|vm   ^|vs2     ^|rs1     ^|width   ^|vs3/vd ^|0101111 |VAMO*
+^|5       ^|1    ^|1    ^|5       ^|5       ^|3       ^|5      ^|7       |
+|===
+endif::[]
 
-////
-31    27 26  25  24      20 19       15 14   12 11      7 6     0
- amoop  |wd| vm |   vs2    |    rs1    | width | vs3/vd  |0101111| VAMO*
-   5      1   1      5           5         3        5        7
-////
+ifdef::wavedrom[]
+Format for Vector AMO Instructions under AMO major opcode
 
 ```wavedrom
 {reg:[
@@ -18,3 +23,4 @@ Format for Vector AMO Instructions under AMO major opcode
   {bits: 5, name: 'amoop'},
 ]}
 ```
+endif::[]
