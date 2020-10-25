@@ -2076,7 +2076,7 @@ endif::[]
 
 ifndef::wavedrom[]
 .Format for Vector Store Whole Register Instructions under STORE-FP major opcode
-[cols=9,options="header"]
+[cols=9,options="header,footer"]
 |===
 ^|[31:29] ^|[28] ^|[27:26] ^|[25] ^|[24:20] ^|[19:15] ^|[14:12] ^|[11:7] ^|[6:0]   |
 ^|nf      ^| 0   ^|00      ^|1    ^|01000   ^|rs1     ^|000     ^|vs3    ^|0100111 |VS<nf>R
