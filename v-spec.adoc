@@ -1,10 +1,11 @@
 = RISC-V "V" Vector Extension
-Version 1.0-draft-20200703
-:doctype: article
+Version {VERSION}
+:doctype: book
 :encoding: utf-8
 :lang: en
 :toc: left
 :numbered:
+:xrefstyle: short
 :stem: latexmath
 :le: &#8804;
 :ge: &#8805;
@@ -421,7 +422,7 @@ These two bits modify the behavior of destination tail elements and
 destination inactive masked-off elements respectively during the
 execution of vector instructions.  The tail and inactive sets contain
 element positions that are not receiving new results during a vector
-operation, as defined in Section <<sec-inactive-defs>>.
+operation, as defined in <<sec-inactive-defs>>.
 
 All systems must support all four options:
 
@@ -1143,8 +1144,7 @@ Masking is supported on many vector instructions.  Element operations
 that are masked off (inactive) never generate exceptions.  The
 destination vector register elements corresponding to masked-off
 elements are handled with either a mask-undisturbed or mask-agnostic
-policy depending on the setting of the `vma` bit in `vtype` (Section
-<<sec-agnostic>>).
+policy depending on the setting of the `vma` bit in `vtype` (<<sec-agnostic>>).
 
 In the base vector extension, the mask value used to control execution
 of a masked vector instruction is always supplied by vector register
@@ -1173,7 +1173,7 @@ calculations. [[sec-mask-vector-logical]]
 When a mask is written with a compare result, destination mask bits
 past the end of the current vector length are handled according to the
 tail policy (undisturbed or agnostic) set by the `vta` bit in `vtype
-(Section <<sec-agnostic>>).
+(<<sec-agnostic>>).
 
 [[sec-vector-mask-encoding]]
 ==== Mask Encoding
@@ -1608,7 +1608,7 @@ regular vector loads and stores, `nf`=0, indicating that a single
 value is moved between a vector register group and memory at each
 element position.  Larger values in the `nf` field are used to access
 multiple contiguous fields within a segment as described below in
-Section <<sec-aos>>.
+<<sec-aos>>.
 
 NOTE: The `nf` field for segment load/stores has replaced the use of
 the same bits for an address offset field.  The offset can be replaced
@@ -2787,7 +2787,7 @@ the second to generate the carry output (single bit encoded as a mask
 boolean).
 
 The carry inputs and outputs are represented using the mask register
-layout as described in Section <<sec-mask-register-layout>>.  Due to
+layout as described in <<sec-mask-register-layout>>.  Due to
 encoding constraints, the carry input must come from the implicit `v0`
 register, but carry outputs can be written to any vector register that
 respects the source/destination overlap restrictions.
@@ -2965,7 +2965,7 @@ pseudoinstructions `vncvt.x.x.w vd,vs,vm` = `vnsrl.wx vd,vs,x0,vm`.
 The following integer compare instructions write 1 to the destination
 mask register element if the comparison evaluates to true, and 0
 otherwise.  The destination mask vector is always held in a single
-vector register, with a layout of elements as described in Section
+vector register, with a layout of elements as described in 
 <<sec-mask-register-layout>>.  The destination mask vector register
 may be the same as the source vector mask register (`v0`).
 
@@ -3529,7 +3529,7 @@ The vector floating-point instructions have the same behavior as the
 scalar floating-point instructions with regard to NaNs.
 
 Scalar values for vector-scalar operations can be sourced from the
-standard scalar `f` registers, as described in Section
+standard scalar `f` registers, as described in
 <<sec-arithmetic-encoding>>.
 
 === Vector Floating-Point Exception Flags
@@ -3868,7 +3868,7 @@ vector operand.  Can define assembly pseudoinstruction `vfneg.v vd,vs`
 These vector FP compare instructions compare two source operands and
 write the comparison result to a mask register.  The destination mask
 vector is always held in a single vector register, with a layout of
-elements as described in Section <<sec-mask-register-layout>>.  The
+elements as described in <<sec-mask-register-layout>>.  The
 destination mask vector register may be the same as the source vector
 mask register (`v0`).
 
@@ -4273,8 +4273,7 @@ As with other vector instructions, the elements with indices less than
 `vstart` are unchanged, and `vstart` is reset to zero after execution.
 Vector mask logical instructions are always unmasked so there are no
 inactive elements.  Mask elements past `vl`, the tail elements, are
-handled according to the setting of `vta` in `vtype` (Section
-<<sec-agnostic>>).
+handled according to the setting of `vta` in `vtype` (<<sec-agnostic>>).
 
 ----
     vmand.mm vd, vs2, vs1     # vd.mask[i] =   vs2.mask[i] &&  vs1.mask[i]
@@ -4345,7 +4344,7 @@ use.
 ----
 
 The source operand is a single vector register holding mask register
-values as described in Section <<sec-mask-register-layout>>.
+values as described in <<sec-mask-register-layout>>.
 
 The `vpopc.m` instruction counts the number of mask elements of the
 active elements of the vector source mask register that have the value
@@ -4416,8 +4415,7 @@ there is no set bit in the source vector, then all active elements in
 the destination are written with a 1.
 
 The tail elements in the destination mask register are handled
-according to the setting of the `vta` bit in `vtype` (Section
-<<sec-agnostic>>).
+according to the setting of the `vta` bit in `vtype` (<<sec-agnostic>>).
 
 Traps on `vmsbf.m` are always reported with a `vstart` of 0.  The
 `vmsbf` instruction will raise an illegal instruction exception if
@@ -4453,8 +4451,7 @@ set-before-first, except it also includes the element with a set bit.
 ----
 
 The tail elements in the destination mask register are handled
-according to the setting of the `vta` bit in `vtype` (Section
-<<sec-agnostic>>).
+according to the setting of the `vta` bit in `vtype` (<<sec-agnostic>>).
 
 Traps on `vmsif.m` are always reported with a `vstart` of 0.  The
 `vmsif` instruction will raise an illegal instruction exception if
@@ -4491,8 +4488,7 @@ set, if any.
 ----
 
 The tail elements in the destination mask register are handled
-according to the setting of the `vta` bit in `vtype` (Section
-<<sec-agnostic>>).
+according to the setting of the `vta` bit in `vtype` (<<sec-agnostic>>).
 
 Traps on `vmsof.m` are always reported with a `vstart` of 0.  The
 `vmsof` instruction will raise an illegal instruction exception if
@@ -4863,7 +4859,7 @@ treated as unsigned integers.  The source vector can be read at any
 index < VLMAX regardless of `vl`.  The number of elements to write to
 the destination register is given by `vl`, and the remaining elements
 past `vl` are handled according to the current tail policy
-(Section <<sec-agnostic>>).  The operation can be masked.
+(<<sec-agnostic>>).  The operation can be masked.
 
 ----
 vrgather.vv vd, vs2, vs1, vm # vd[i] = (vs1[i] >= VLMAX) ? 0 : vs2[vs1[i]];
@@ -4915,8 +4911,7 @@ The vector mask register specified by `vs1` indicates which of the
 first `vl` elements of vector register group `vs2` should be extracted
 and packed into contiguous elements at the beginning of vector
 register `vd`. The remaining elements of `vd` are treated as tail
-elements according to the current tail policy (Section
-<<sec-agnostic>>).
+elements according to the current tail policy (<<sec-agnostic>>).
 
 ----
     Example use of vcompress instruction
