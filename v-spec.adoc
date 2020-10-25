@@ -275,10 +275,9 @@ max(XLEN,FLEN) are required to be supported.  Other profiles may
 impose different constraints on ELEN.
 
 .vsew[2:0] (selected element width) encoding
-[cols="1,1,1,>13"]
-[%autowidth]
+[cols="2,2,2,>10"]
 |===
-3+| vsew[2:0] | SEW
+3+^| vsew[2:0] ^| SEW
 
 | 0 | 0 | 0 |    8
 | 0 | 0 | 1 |   16
@@ -292,7 +291,6 @@ impose different constraints on ELEN.
 
 .Example VLEN = 128 bits
 [cols=">,>"]
-[%autowidth]
 |===
 | SEW | Elements per vector register
 
@@ -385,7 +383,6 @@ of elements that can be operated on with a single vector instruction
 given the current SEW and LMUL settings as shown in the table below.
 
 [cols="1,1,1,2,2,5,5"]
-[%autowidth]
 |===
   3+| vlmul | LMUL | #groups | VLMAX      | Registers grouped with register __n__
 
