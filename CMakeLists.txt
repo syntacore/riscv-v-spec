@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.6)
 
-project(v-spec VERSION 0.7 LANGUAGES C)
+project(v-spec VERSION 1.0 LANGUAGES NONE)
 
 find_package(Git)
 
